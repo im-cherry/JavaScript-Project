@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>작업 목록</title>
+
+    <style>
+      #add-btn {
+        padding: 5px 10px;
+        border: 0;
+        background: #f80;
+        color: white;
+        border-radius: 5px;
+      }
+
+      ul {
+        padding: 0;
+        list-style-position: inside;
+      }
+
+      li {
+        border-bottom: 1px solid #999;
+        padding: 5px 0;
+      }
+
+      .active {
+        background: #abc;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="title">할 일 목록</h1>
+    <hr />
+    <button id="add-btn">목록 추가</button>
+    <ul id="list">
+      <li>제목 1</li>
+      <li>제목 2</li>
+      <li>제목 3</li>
+      <li>제목 4</li>
+    </ul>
+
+    <script>
+      // 변수 초기화
+      const title = document.getElementById("title");
+      const list = document.getElementById("list");
+      const li = list.getElementsByTagName("li");
+      const addBtn = document.getElementById("add-btn");
+
+      // [목록 추가] 버튼 클릭 이벤트 추가
+      addBtn.addEventListener("click", function () {
+        let titleText = prompt("제목 입력");
+
+        list.insertAdjacentHTML("beforeend", `<li>${titleText}</li>`);
+      });
+
+      // 목록 클릭 이벤트 추가
+      list.addEventListener("click", activeItem);
+      function activeItem(event) {
+        if (event.target.nodeName == "LI") {
+          title.innerText = event.target.innerText;
+
+          for (let i = 0; i < event.target.parentNode.children.length; i++) {
+            event.target.parentNode.children[i].removeAttribute("class");
+          }
+          event.target.setAttribute("class", "active");
+        }
+      }
+    </script>
+  </body>
+</html>
